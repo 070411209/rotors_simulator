@@ -1,4 +1,5 @@
 <launch>
+  <param name="use_sim_time" value="false" />
   <arg name="mav_name" default="firefly"/>
   <arg name="world_name" default="basic"/>
   <arg name="enable_logging" default="false" />

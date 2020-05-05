@@ -32,7 +32,7 @@
         <linkName>${namespace}/base_link</linkName>
         <frameId>${namespace}/base_link</frameId>
         <rotorVelocitySlowdownSim>${rotor_velocity_slowdown_sim}</rotorVelocitySlowdownSim>
-	<waitToRecordBag>${wait_to_record_bag}</waitToRecordBag>
+	      <waitToRecordBag>${wait_to_record_bag}</waitToRecordBag>
       </plugin>
     </gazebo>
   </xacro:macro>
@@ -286,7 +286,7 @@
     <gazebo>
       <plugin name="mavlink_interface" filename="librotors_gazebo_mavlink_interface.so">
         <robotNamespace>${namespace}</robotNamespace>
-	<mavlinkControlSubTopic>${mavlink_sub_topic}</mavlinkControlSubTopic>
+	      <mavlinkControlSubTopic>${mavlink_sub_topic}</mavlinkControlSubTopic>
         <imuSubTopic>${imu_sub_topic}</imuSubTopic>
         <mavlinkHilSensorPubTopic>${mavlink_pub_topic}</mavlinkHilSensorPubTopic>
 	<motorSpeedsPubTopic>${motors_speeds_pub_topic}</motorSpeedsPubTopic>

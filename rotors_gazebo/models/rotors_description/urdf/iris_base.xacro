@@ -13,7 +13,6 @@
 
   <!-- Instantiate iris "mechanics" -->
   <xacro:include filename="$(arg rotors_description_dir)/urdf/iris.xacro" />
-
   <xacro:if value="$(arg enable_wind)">
     <xacro:wind_plugin_macro
         namespace="${namespace}"
