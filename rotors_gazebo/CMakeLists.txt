@@ -31,7 +31,8 @@ if(${gazebo_VERSION_MAJOR} GREATER 2)
       COMMAND rm -f ${rotors_description_dir}/urdf/firefly_base.urdf
       DEPENDS ${rotors_description_dir}/urdf/firefly.xacro
       DEPENDS ${rotors_description_dir}/urdf/firefly_base.xacro
-      DEPENDS ${rotors_description_dir}/urdf/component_snippets.xacro
+      DEPENDS ${rotors_description_dir}/urdf/component_snippets_1.xacro
+      DEPENDS ${rotors_description_dir}/urdf/multirotor_base_1.xacro
       )
     add_custom_target(sdf ALL DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/models/firefly/firefly.sdf)
 else()
