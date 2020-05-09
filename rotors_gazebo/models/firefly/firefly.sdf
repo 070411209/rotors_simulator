@@ -65,39 +65,6 @@
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
     </joint>
-    <link name='firefly/imugt_link'>
-      <pose frame=''>0 0 0 0 -0 0</pose>
-      <inertial>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <mass>1e-05</mass>
-        <inertia>
-          <ixx>1e-05</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>1e-05</iyy>
-          <iyz>0</iyz>
-          <izz>1e-05</izz>
-        </inertia>
-      </inertial>
-    </link>
-    <joint name='firefly/imugt_joint' type='revolute'>
-      <child>firefly/imugt_link</child>
-      <parent>firefly/base_link</parent>
-      <axis>
-        <xyz>1 0 0</xyz>
-        <limit>
-          <lower>0</lower>
-          <upper>0</upper>
-          <effort>0</effort>
-          <velocity>0</velocity>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
-        <use_parent_model_frame>1</use_parent_model_frame>
-      </axis>
-    </joint>
     <link name='firefly/odometry_sensor1_link'>
       <pose frame=''>0 0 0 0 -0 0</pose>
       <inertial>
@@ -115,39 +82,6 @@
     </link>
     <joint name='firefly/odometry_sensor1_joint' type='revolute'>
       <child>firefly/odometry_sensor1_link</child>
-      <parent>firefly/base_link</parent>
-      <axis>
-        <xyz>1 0 0</xyz>
-        <limit>
-          <lower>0</lower>
-          <upper>0</upper>
-          <effort>0</effort>
-          <velocity>0</velocity>
-        </limit>
-        <dynamics>
-          <spring_reference>0</spring_reference>
-          <spring_stiffness>0</spring_stiffness>
-        </dynamics>
-        <use_parent_model_frame>1</use_parent_model_frame>
-      </axis>
-    </joint>
-    <link name='firefly/odometry_sensorgt_link'>
-      <pose frame=''>0 0 0 0 -0 0</pose>
-      <inertial>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <mass>1e-05</mass>
-        <inertia>
-          <ixx>1e-05</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>1e-05</iyy>
-          <iyz>0</iyz>
-          <izz>1e-05</izz>
-        </inertia>
-      </inertial>
-    </link>
-    <joint name='firefly/odometry_sensorgt_joint' type='revolute'>
-      <child>firefly/odometry_sensorgt_link</child>
       <parent>firefly/base_link</parent>
       <axis>
         <xyz>1 0 0</xyz>
@@ -675,6 +609,21 @@
       <imuSubTopic>imu</imuSubTopic>
       <motorSpeedCommandPubTopic>gazebo/command/motor_speed</motorSpeedCommandPubTopic>
     </plugin>
+    <plugin name='mavlink_interface' filename='librotors_gazebo_mavlink_interface.so'>
+      <robotNamespace>firefly</robotNamespace>
+      <mavlinkControlSubTopic>/mavlink/from</mavlinkControlSubTopic>
+      <imuSubTopic>imu</imuSubTopic>
+      <mavlinkHilSensorPubTopic>/mavlink/to</mavlinkHilSensorPubTopic>
+      <motorSpeedsPubTopic>gazebo/command/motor_speed</motorSpeedsPubTopic>
+      <gpsUpdateFreq>5.0</gpsUpdateFreq>
+      <rotorCount>6</rotorCount>
+      <referenceMagNorth>0.21475</referenceMagNorth>
+      <referenceMagEast>0.00797</referenceMagEast>
+      <referenceMagDown>0.42817</referenceMagDown>
+      <referenceLatitude>47.3667</referenceLatitude>
+      <referenceLongitude>8.55</referenceLongitude>
+      <referenceAltitude>500.0</referenceAltitude>
+    </plugin>
     <plugin name='rotors_gazebo_imu_plugin' filename='librotors_gazebo_imu_plugin.so'>
       <robotNamespace>firefly</robotNamespace>
       <linkName>firefly/imu_link</linkName>
@@ -687,41 +636,6 @@
       <accelerometerRandomWalk>0.006</accelerometerRandomWalk>
       <accelerometerBiasCorrelationTime>300.0</accelerometerBiasCorrelationTime>
       <accelerometerTurnOnBiasSigma>0.196</accelerometerTurnOnBiasSigma>
-    </plugin>
-    <plugin name='rotors_gazebo_imugt_plugin' filename='librotors_gazebo_imu_plugin.so'>
-      <robotNamespace>firefly</robotNamespace>
-      <linkName>firefly/imugt_link</linkName>
-      <imuTopic>ground_truth/imu</imuTopic>
-      <gyroscopeNoiseDensity>0.0</gyroscopeNoiseDensity>
-      <gyroscopeRandomWalk>0.0</gyroscopeRandomWalk>
-      <gyroscopeBiasCorrelationTime>1000.0</gyroscopeBiasCorrelationTime>
-      <gyroscopeTurnOnBiasSigma>0.0</gyroscopeTurnOnBiasSigma>
-      <accelerometerNoiseDensity>0.0</accelerometerNoiseDensity>
-      <accelerometerRandomWalk>0.0</accelerometerRandomWalk>
-      <accelerometerBiasCorrelationTime>300.0</accelerometerBiasCorrelationTime>
-      <accelerometerTurnOnBiasSigma>0.0</accelerometerTurnOnBiasSigma>
-    </plugin>
-    <plugin name='odometry_sensorgt' filename='librotors_gazebo_odometry_plugin.so'>
-      <linkName>firefly/odometry_sensorgt_link</linkName>
-      <robotNamespace>firefly</robotNamespace>
-      <poseTopic>ground_truth/pose</poseTopic>
-      <poseWithCovarianceTopic>ground_truth/pose_with_covariance</poseWithCovarianceTopic>
-      <positionTopic>ground_truth/position</positionTopic>
-      <transformTopic>ground_truth/transform</transformTopic>
-      <odometryTopic>ground_truth/odometry</odometryTopic>
-      <parentFrameId>world</parentFrameId>
-      <childFrameId>firefly/base_link</childFrameId>
-      <measurementDivisor>1</measurementDivisor>
-      <measurementDelay>0</measurementDelay>
-      <unknownDelay>0.0</unknownDelay>
-      <noiseNormalPosition>0 0 0</noiseNormalPosition>
-      <noiseNormalQuaternion>0 0 0</noiseNormalQuaternion>
-      <noiseNormalLinearVelocity>0 0 0</noiseNormalLinearVelocity>
-      <noiseNormalAngularVelocity>0 0 0</noiseNormalAngularVelocity>
-      <noiseUniformPosition>0 0 0</noiseUniformPosition>
-      <noiseUniformQuaternion>0 0 0</noiseUniformQuaternion>
-      <noiseUniformLinearVelocity>0 0 0</noiseUniformLinearVelocity>
-      <noiseUniformAngularVelocity>0 0 0</noiseUniformAngularVelocity>
     </plugin>
     <static>0</static>
     <plugin name='odometry_sensor1' filename='librotors_gazebo_odometry_plugin.so'>
