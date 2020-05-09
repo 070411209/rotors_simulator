@@ -31,21 +31,61 @@
     <arg name="verbose" value="$(arg verbose)"/>
   </include>
   
-  <remap from="odometry" to="odometry_sensor1/odometry" />
+  <remap from="odometry" to="/firefly/odometry_sensor1/odometry" />
   
   <!-- gazebo model -->
-  <node name="$(anon vehicle_spawn)" pkg="gazebo_ros" type="spawn_model" output="screen" args="-sdf -file $(arg sdf) -model $(arg mav_name) -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg R) -P $(arg P) -Y $(arg Y)"/>
+  <node name="$(anon vehicle_spawn)" pkg="gazebo_ros" respawn="false" type="spawn_model" output="screen" args="-sdf -file $(arg sdf) -model $(arg mav_name) -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg R) -P $(arg P) -Y $(arg Y)"/>
 
   <group ns="$(arg mav_name)">
     <node name="lee_position_controller_node" pkg="rotors_control" type="lee_position_controller_node" output="screen">
       <rosparam command="load" file="$(find rotors_gazebo)/resource/lee_controller_$(arg mav_name).yaml" />
       <rosparam command="load" file="$(find rotors_gazebo)/resource/$(arg mav_name).yaml" />
-      <!-- <remap from="odometry" to="odometry_sensor1/odometry" /> -->
+      <remap from="odometry" to="odometry_sensor1/odometry" />
     </node>
     <node name="hovering_example" pkg="rotors_gazebo" type="hovering_example" output="screen"/>
     <!-- <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
     <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" /> -->
 
   </group>
+
+  <node pkg="tf" type="static_transform_publisher" name="tf_laser0"
+        args="0 0 0 0 0 0 firefly/base_link firefly/odometry_sensor1_link 100"/>
+
+  <node pkg="tf" type="static_transform_publisher" name="tf_laser1"
+        args="0 0 0 0 0 0 firefly/base_link firefly/odometry_sensorgt_link 100"/>
+
+  <node pkg="tf" type="static_transform_publisher" name="tf_laser2"
+        args="0 0 0 0 0 0 firefly/base_link firefly/imugt_link 100"/>
+
+  <node pkg="tf" type="static_transform_publisher" name="tf_laser3"
+        args="0 0 0 0 0 0 firefly/base_link firefly/imu_link 100"/>
+
+  <node pkg="tf" type="static_transform_publisher" name="tf_laser4"
+        args="0 0 0 0 0 0 firefly/base_link firefly/imu_link 100"/>        
+
+  <node pkg="tf" type="static_transform_publisher" name="tf_laser5"
+        args="0 0 0 0 0 0 firefly/base_link firefly/base_link_inertia 100"/> 
+
+  <node pkg="tf" type="static_transform_publisher" name="tf_laser6"
+        args="0 0 0 0 0 0 firefly/base_link firefly/rotor_0 100"/> 
+
+  <node pkg="tf" type="static_transform_publisher" name="tf_laser7"
+        args="0 0 0 0 0 0 firefly/base_link firefly/rotor_1 100"/>
+
+  <node pkg="tf" type="static_transform_publisher" name="tf_laser8"
+        args="0 0 0 0 0 0 firefly/base_link firefly/rotor_2 100"/>
+
+
+  <node pkg="tf" type="static_transform_publisher" name="tf_laser9"
+        args="0 0 0 0 0 0 firefly/base_link firefly/rotor_3 100"/>
+
+  <node pkg="tf" type="static_transform_publisher" name="tf_laser11"
+        args="0 0 0 0 0 0 firefly/base_link firefly/rotor_4 100"/>
+
+  <node pkg="tf" type="static_transform_publisher" name="tf_laser14"
+        args="0 0 0 0 0 0 firefly/base_link firefly/rotor_5 100"/>
+
+  <!-- <node pkg="tf" type="static_transform_publisher" name="/gazebo"
+        args="0 0 0 0 0 0 world firefly/odometry_sensor1 100"/> -->
 
 </launch>

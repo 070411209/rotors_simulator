@@ -14,7 +14,8 @@ find_package(gazebo REQUIRED)
 if(${gazebo_VERSION_MAJOR} GREATER 2)
     message(STATUS "Building iris.sdf.")
     
-    set(enable_mavlink_interface "true")
+    set(namespace "firefly")
+    set(enable_mavlink_interface "false")
     set(enable_ground_truth "true")
     set(enable_logging "false")
     set(enable_camera "false")
@@ -26,7 +27,7 @@ if(${gazebo_VERSION_MAJOR} GREATER 2)
     add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/models/firefly/firefly.sdf
       WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
       COMMAND rm -f ${CMAKE_CURRENT_SOURCE_DIR}/models/firefly/firefly.sdf
-      COMMAND python ${scripts_dir}/xacro.py -o  ${rotors_description_dir}/urdf/firefly_base.urdf  ${rotors_description_dir}/urdf/firefly_base.xacro enable_mavlink_interface:=${enable_mavlink_interface} enable_ground_truth:=${enable_ground_truth} enable_wind:=${enable_wind} enable_logging:=${enable_logging} rotors_description_dir:=${rotors_description_dir}
+      COMMAND python ${scripts_dir}/xacro.py -o  ${rotors_description_dir}/urdf/firefly_base.urdf  ${rotors_description_dir}/urdf/mav_generic_odometry_sensor.gazebo enable_mavlink_interface:=${enable_mavlink_interface} enable_ground_truth:=${enable_ground_truth} enable_wind:=${enable_wind} enable_logging:=${enable_logging} namespace:=${namespace} rotors_description_dir:=${rotors_description_dir}
       COMMAND gz sdf -p  ${rotors_description_dir}/urdf/firefly_base.urdf >> ${CMAKE_CURRENT_SOURCE_DIR}/models/firefly/firefly.sdf
       COMMAND rm -f ${rotors_description_dir}/urdf/firefly_base.urdf
       DEPENDS ${rotors_description_dir}/urdf/firefly.xacro
