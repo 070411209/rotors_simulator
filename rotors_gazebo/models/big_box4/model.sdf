@@ -19,10 +19,10 @@
       <collision name="collision">
         <geometry>
           <box>
-              <size>1.20 0.80 1.25</size>
+              <size>1.20 0.80 0.25</size>
           </box>
         </geometry>
-	<surface>
+	      <surface>
           <contact>
             <ode>
               <max_vel>0.1</max_vel>

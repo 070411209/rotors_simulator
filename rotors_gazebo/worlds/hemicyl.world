@@ -64,5 +64,10 @@
     <include>
       <uri>model://hemicyl</uri>
     </include>
+
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+        
   </world>
 </sdf>
