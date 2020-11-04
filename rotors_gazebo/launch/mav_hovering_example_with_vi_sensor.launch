@@ -32,4 +32,11 @@
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
     <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
   </group>
+  <include file="$(find octomap_server)/launch/octomap_tracking_server.launch">
+    <remap from="cloud_in" to="/firefly/vi_sensor/camera_depth/depth/points" />
+    <param name="resolution" value="0.5" />
+  </include>
+
+  <node name="rviz" pkg="rviz" type="rviz" output="screen" />
+
 </launch>
